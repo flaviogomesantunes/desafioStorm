@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{{ nomeFilme }} | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+
+      <div class="row">	
+         <div class="col-15 col-md-10">
+        	 <h1 class="my-4">{{ nomeFilme }}</h1>
+         </div> 
+      </div>
+      
+{% load thumbnail %}
+
+      <div class="row">
+
+		<div class="col-md-4">
+		  
+			{% if imagem %}
+			<img class="img-fluid" src="{{ imagem|thumbnail_url:'filme_imagem' }}" alt="{{ nomeFilme }}">
+			{% else %}
+			<img class="img" src="/media/filmes/noimage.jpg" alt="{{ nomeFilme }}">
+			{% endif %}
+		</div>
+
+        <div class="col-md-8">
+          <h3>Sinopse</h3>
+          {{ sinopse|linebreaks }}
+          <h3>Gênero</h3>
+          <p>
+			{% for genero in generos %}
+			<a href="{% url 'catalogo.views.genero' genero.slug %}">{{ genero.nomeGenero }}</a>
+			{% if not forloop.last %},{% endif %}
+  		  	{% empty %}
+            Nenhum gênero cadastrado.
+            {% endfor %}
+  		  </p> 
+          <h3>Atores</h3>
+          <p>
+			{% for ator in atores %}
+			<a href="{% url 'catalogo.views.ator' ator.slug %}">{{ ator.nomeAtor }}</a>
+			{% if not forloop.last %},{% endif %}
+  		  	{% empty %}
+            Nenhum ator cadastrado.
+            {% endfor %}
+		  </p>
+        </div>
+
+      </div>
+      <!-- /.row -->
+      
+      <h2 class="my-4">Filmes Relacionados</h2>
+              
+      <div class="row">
+		
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/batman-vs-superman.jpg" alt="">
+          </a>
+        </div>
+
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/homem-de-ferro-3.jpg" alt="">
+          </a>
+        </div>
+
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/homem-formiga.jpg" alt="">
+          </a>
+        </div>
+
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/mulher-maravilha.jpg" alt="">
+          </a>
+        </div>
+        
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/vingadores.jpg" alt="">
+          </a>
+        </div>
+        
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/watchmen.jpg" alt="">
+          </a>
+        </div>
+
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/homem-de-ferro-3.jpg" alt="">
+          </a>
+        </div>
+
+        <div class="col mb-4">
+          <a href="#">
+            <img class="img" src="/static/img/filmes/homem-formiga.jpg" alt="">
+          </a>
+        </div>
+        
+        <div class="col mb-4"></div>
+        <div class="col mb-4"></div>
+   
+        
+      </div>
+
+
+{% endblock %}

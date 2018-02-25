@@ -1,35 +1,32 @@
 # coding=utf-8
 from django.shortcuts import render
 from django.forms.models import model_to_dict
-
 from .models import Filme, Genero, Ator
 
-def index(request):
 
-	context = {
-		'filmes': Filme.objects.all()
-	}
-	return render(request, 'catalogo/index.html', context)
-	
+def index(request):
+    context = {
+        'filmes': Filme.objects.all()
+    }
+    return render(request, 'catalogo/index.html', context)
+
 
 def filme(request, slug):
-	
-	filme = Filme.objects.filter(slug=slug).first()
-    
-	return render(request, 'catalogo/filme.html', filme.as_dict())
-	
-	#filme = Filme.objects.get(slug=slug)	
-	#context = {
-	#	'filme': filme
-	#}	
-	#return render(request, 'catalogo/filme.html', context)
+    filme = Filme.objects.filter(slug=slug).first()
+    return render(request, 'catalogo/filme.html', filme.as_dict())
+
+    # filme = Filme.objects.get(slug=slug)
+    # context = {
+    # 	'filme': filme
+    # }
+    # return render(request, 'catalogo/filme.html', context)
+
 
 def genero(request, slug):
-	genero = Genero.objects.filter(slug=slug).first()	
-	return render(request, 'catalogo/genero.html',genero.as_dict())
+    genero = Genero.objects.filter(slug=slug).first()
+    return render(request, 'catalogo/genero.html', genero.as_dict())
 
 
 def ator(request, slug):
-	ator = Ator.objects.filter(slug=slug).first()
-    
-	return render(request, 'catalogo/ator.html', ator.as_dict())
+    ator = Ator.objects.filter(slug=slug).first()
+    return render(request, 'catalogo/ator.html', ator.as_dict())

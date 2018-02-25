@@ -6,38 +6,37 @@
 
 {% block container %}
 
-      <div class="row">	
+      <div class="row">
          <div class="col-15 col-md-10">
         	 <h1 class="my-4">{{ nomeAtor }}</h1>
-         </div> 
+         </div>
       </div>
 
 {% load thumbnail %}
-      
+
       <div class="row">
 
         <div class="col-md-3">
-		{% if imagem %}
-		<img class="img-fluid" src="{{ imagem|thumbnail_url:'ator_imagem' }}" alt="{{ nomeAtor }}">
-		{% else %}
-		<img class="img" src="/media/atores/noimage.jpg" alt="{{ nomeAtor }}">
-		{% endif %}		
 
+				{% if imagem %}
+					<img class="img-fluid" src="{{ imagem|thumbnail_url:'ator_imagem' }}" alt="{{ nomeAtor }}">
+				{% else %}
+					<img class="img" src="/media/atores/noimage.jpg" alt="{{ nomeAtor }}">
+				{% endif %}
 
-          <img class="img-fluid" src="img/atores/tom-cruise.jpg" alt="">
         </div>
 
         <div class="col-md-9">
-          <span>Ator</span> 	
+          <span>Ator</span>
           <h3>{{ nomeAtor }}</h3>
           <p><b>País:</b> {{ pais }}</p>
         </div>
 
       </div>
       <!-- /.row -->
-      
+
       <h2 class="my-4">Filmes Relacionados</h2>
-              
+
       <div class="row">
 
         <div class="col mb-4">
@@ -63,13 +62,13 @@
             <img class="img" src="img/filmes/mulher-maravilha.jpg" alt="">
           </a>
         </div>
-        
+
         <div class="col mb-4">
           <a href="#">
             <img class="img" src="img/filmes/vingadores.jpg" alt="">
           </a>
         </div>
-        
+
         <div class="col mb-4">
           <a href="#">
             <img class="img" src="img/filmes/watchmen.jpg" alt="">
@@ -87,7 +86,7 @@
             <img class="img" src="img/filmes/homem-formiga.jpg" alt="">
           </a>
         </div>
-        
+
         <div class="col mb-4"></div>
         <div class="col mb-4"></div>
 

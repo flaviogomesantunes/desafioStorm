@@ -25,12 +25,12 @@ from catalogo import views as views_catalogo
 urlpatterns = [
     url(r'^$', views_catalogo.index, name='index'),
     url(r'^ator/(?P<slug>[\w_-]+)/$', views_catalogo.ator, name='ator'),
-	url(r'^filme/(?P<slug>[\w_-]+)/$', views_catalogo.filme, name='filme'),
-	url(r'^genero/(?P<slug>[\w_-]+)/$', views_catalogo.genero, name='genero'),    
-	url(r'^admin/', admin.site.urls),
+    url(r'^filme/(?P<slug>[\w_-]+)/$', views_catalogo.filme, name='filme'),
+    url(r'^genero/(?P<slug>[\w_-]+)/$', views_catalogo.genero, name='genero'),
+    url(r'^admin/', admin.site.urls),
 ]
 
-#serve arquivos estaticos em modo debug
+# serve arquivos estaticos em modo debug
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

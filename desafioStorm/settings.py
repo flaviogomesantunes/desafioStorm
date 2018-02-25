@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	#libs
-	'easy_thumbnails',    
-	#apps	
-	'core',
-	'catalogo',
+    # libs
+    'easy_thumbnails',
+    # apps
+    'core',
+    'catalogo',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,8 +69,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-		#apps
-		#'catalogo.context_processors.filmes',
+                # apps
+                # 'catalogo.context_processors.filmes',
             ],
         },
     },
@@ -130,15 +130,15 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#STATICFILES_DIRS = [
-#	os.path.join(BASE_DIR, 'staticfiles')
-#]
+# STATICFILES_DIRS = [
+# 	os.path.join(BASE_DIR, 'staticfiles')
+# ]
 
-#Thumbnails
+# Thumbnails
 THUMBNAIL_ALIASES = {
-	'': {
-		'filme_imagem_thumb': {'size': (175,250), 'crop': True},
-		'filme_imagem': {'size': (350,493), 'crop': True},	
-		'ator_imagem': {'size': (300,300), 'crop': True},
-	},
+    '': {
+        'filme_imagem_thumb': {'size': (175, 250), 'crop': True},
+        'filme_imagem': {'size': (350, 493), 'crop': True},
+        'ator_imagem': {'size': (300, 300), 'crop': True},
+    },
 }

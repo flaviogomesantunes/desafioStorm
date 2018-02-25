@@ -1,40 +1,40 @@
 {% extends "base.html" %}
 
 {% block container %}
-    <div class="row">	
-      	 
+    <div class="row">
+
          <div class="col-15 col-md-10">
         	 <h1 class="my-4">Listagem de Filmes</h1>
-         </div> 
-         
-         <div class="col-3 col-md-2 my-4">  
+         </div>
+
+         <div class="col-3 col-md-2 my-4">
              <form class="form-inline" method="post">
-		 {% csrf_token %}
-		 <label>Ordenar por:</label>	
+        		 {% csrf_token %}
+        		 <label>Ordenar por:</label>
                  <select class="custom-select" id="ordenacao" name="ordenacao">
                     <option value="A_Z">Alfabética</option>
                     <option value="Z_A">Alfabética Inversa</option>
                  </select>
               </form>
-      	 </div>
-      
+        	 </div>
+
       </div>
-	
-      {% load thumbnail %}	
-              
+
+      {% load thumbnail %}
+
       <div class="row">
-	
-		{% for filme in filmes %}
-        <div class="col mb-4">	
-          <a href="{{ filme.get_absolute_url }}">
-	    {% if filme.imagem %}
-		<img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}">
-            {% else %}	    
-		<img class="img" src="/media/filmes/noimage-thumb.jpg" alt="{{ filme }}">
-            {% endif %}  		
-          </a>
-        </div>
-		{% endfor %}
+
+		      {% for filme in filmes %}
+          <div class="col mb-4">
+              <a href="{{ filme.get_absolute_url }}">
+	        {% if filme.imagem %}
+		          <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}">
+          {% else %}
+		          <img class="img" src="/media/filmes/noimage-thumb.jpg" alt="{{ filme }}">
+          {% endif %}
+              </a>
+          </div>
+		      {% endfor %}
 
       </div>
 {% endblock %}

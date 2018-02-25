@@ -2,11 +2,13 @@
 from django.db import models
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
+from autoslug import AutoSlugField
 
 
 class Ator(models.Model):
     nomeAtor = models.CharField('Ator', max_length=200)
-    slug = models.SlugField('Identificador', max_length=100)
+    # slug = models.SlugField('Identificador', max_length=100)
+    slug = AutoSlugField('Identificador', populate_from='nomeAtor', unique=True, max_length=200)
     imagem = models.ImageField('Imagem', upload_to='atores', blank=True, null=True)
     pais = models.CharField('País', max_length=100)
 
@@ -35,7 +37,8 @@ class Ator(models.Model):
 
 class Genero(models.Model):
     nomeGenero = models.CharField('Gênero', max_length=100)
-    slug = models.SlugField('Identificador', max_length=100)
+    # slug = models.SlugField('Identificador', max_length=100)
+    slug = AutoSlugField('Identificador', populate_from='nomeGenero', unique=True, max_length=100)
 
     class Meta:
         verbose_name = 'Gênero'
@@ -61,7 +64,8 @@ class Genero(models.Model):
 
 class Filme(models.Model):
     nomeFilme = models.CharField('Filme', max_length=200)
-    slug = models.SlugField('Identificador', max_length=200)
+    # slug = models.SlugField('Identificador', max_length=200)
+    slug = AutoSlugField('Identificador', populate_from='nomeFilme', unique=True, max_length=200)
     sinopse = models.TextField('Sinopse', blank=True)
     resumo = models.CharField('Resumo', max_length=150)
     imagem = models.ImageField('Imagem', upload_to='filmes', blank=True, null=True)

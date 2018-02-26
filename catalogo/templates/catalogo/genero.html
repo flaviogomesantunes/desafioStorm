@@ -1,105 +1,47 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ nomeGenero }} | {{ block.super }}
+	{{ header_content }} | {{ block.super }}
 {% endblock %}
 
 {% block container %}
     <div class="row">
 
          <div class="col-15 col-md-10">
-        	 <h1 class="my-4">{{ self.nomeGenero }}</h1>
+        	 <h1 class="my-4">{{ header_content }}</h1>
          </div>
 
-         <div class="col-3 col-md-2 my-4">
-             <form class="form-inline">
-                 <select class="custom-select" id="Order" name="Order">
-                    <option>Ordenar por:</option>
-                    <option value="A_Z">A-Z</option>
-                    <option value="Z_A">Z-A</option>
+				 <div class="col-3 col-md-2 my-4">
+             <form class="form-inline" method="get" name="form1" onchange="javascript:document.form1.submit();">
+        		 <label>Ordenar por:</label>
+                 <select class="custom-select" id="ordem" name="ordem">
+                    <option value="">Popularidade</option>
+                    <option value="A_Z" {% if ordem == "A_Z" %}selected{% endif %}>Alfabética</option>
+                    <option value="Z_A" {% if ordem == "Z_A" %}selected{% endif %}>Alfabética Inversa</option>
                  </select>
               </form>
-      	 </div>
+        	 </div>
 
       </div>
 
       <div class="row">
 
-        <div class="col mb-4">
-          <a href="">
-            <img class="img" src="img/filmes/batman-vs-superman.jpg" alt="Filme">
-          </a>
-        </div>
+				{% load thumbnail %}
 
-        <div class="col mb-4">
-          <a href="">
-            <img class="img" src="img/filmes/homem-de-ferro-3.jpg" alt="Filme">
-          </a>
-        </div>
+	      <div class="row">
 
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/homem-formiga.jpg" alt="">
-          </a>
-        </div>
+			      {% for filme in filmes %}
+	          <div class="col mb-4">
+	              <a href="{{ filme.get_absolute_url }}">
+		        {% if filme.imagem %}
+			          <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}">
+	          {% else %}
+			          <img class="img" src="/media/filmes/noimage-thumb.jpg" alt="{{ filme }}">
+	          {% endif %}
+	              </a>
+	          </div>
+			      {% endfor %}
 
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/mulher-maravilha.jpg" alt="">
-          </a>
-        </div>
+	      </div>
 
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/vingadores.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/watchmen.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/homem-de-ferro-3.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/homem-formiga.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/mulher-maravilha.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/vingadores.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/batman-vs-superman.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4">
-          <a href="#">
-            <img class="img" src="img/filmes/homem-de-ferro-3.jpg" alt="">
-          </a>
-        </div>
-
-        <div class="col mb-4"></div>
-        <div class="col mb-4"></div>
-        <div class="col mb-4"></div>
-
-      </div>
 {% endblock %}

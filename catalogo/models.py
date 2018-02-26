@@ -72,11 +72,12 @@ class Filme(models.Model):
     # FK para Atores e Generos do app catalogo
     atores = models.ManyToManyField('catalogo.Ator', verbose_name='Ator')
     generos = models.ManyToManyField('catalogo.Genero', verbose_name='Gênero')
+    popularidade = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'Filme'
         verbose_name_plural = 'Filmes'
-        ordering = ['nomeFilme']
+        ordering = ['-popularidade']
 
     def __str__(self):
         return self.nomeFilme
@@ -85,6 +86,10 @@ class Filme(models.Model):
         return reverse('filme', kwargs={'slug': self.slug})
 
     def as_dict(self):
+        # Incrementa o campo popularidade ao retornar os dados de um filme
+        self.popularidade = self.popularidade + 1
+        self.save()
+
         dictionary = model_to_dict(self)
         dictionary['slug'] = self.slug
         dictionary['generos'] = [gen.as_simple_dict() for gen in Genero.objects.filter(filme__slug=self.slug)]

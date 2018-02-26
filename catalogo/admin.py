@@ -18,6 +18,7 @@ class AtorAdmin(admin.ModelAdmin):
 
 class FilmeAdmin(admin.ModelAdmin):
 
+    readonly_fields = ['popularidade']
     list_display = ['nomeFilme', 'slug']
     search_fields = ['nomeFilme', 'slug']
 

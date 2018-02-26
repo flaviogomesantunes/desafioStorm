@@ -12,15 +12,15 @@ class GeneroAdmin(admin.ModelAdmin):
 
 class AtorAdmin(admin.ModelAdmin):
 
-    list_display = ['nomeAtor', 'slug']
-    search_fields = ['nomeAtor', 'slug']
+    list_display = ['nomeAtor', 'slug', 'pais']
+    search_fields = ['nomeAtor', 'slug', 'pais']
 
 
 class FilmeAdmin(admin.ModelAdmin):
 
     readonly_fields = ['popularidade']
-    list_display = ['nomeFilme', 'slug']
-    search_fields = ['nomeFilme', 'slug']
+    list_display = ['nomeFilme', 'slug', 'popularidade']
+    search_fields = ['nomeFilme', 'slug', 'popularidade']
 
 
 admin.site.register(Ator, AtorAdmin)

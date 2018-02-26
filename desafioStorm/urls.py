@@ -23,6 +23,7 @@ from core import views
 from catalogo import views as views_catalogo
 
 urlpatterns = [
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^$', views_catalogo.index, name='index'),
     url(r'^ator/(?P<slug>[\w_-]+)/$', views_catalogo.ator, name='ator'),
     url(r'^filme/(?P<slug>[\w_-]+)/$', views_catalogo.filme, name='filme'),

@@ -72,7 +72,7 @@ class Filme(models.Model):
     # FK para Atores e Generos do app catalogo
     atores = models.ManyToManyField('catalogo.Ator', verbose_name='Ator')
     generos = models.ManyToManyField('catalogo.Genero', verbose_name='Gênero')
-    popularidade = models.IntegerField(default=0)
+    popularidade = models.IntegerField('Popularidade', default=0)
 
     class Meta:
         verbose_name = 'Filme'

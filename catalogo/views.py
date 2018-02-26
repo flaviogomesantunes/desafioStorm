@@ -13,7 +13,6 @@ def index(request):
 
 def filme(request, slug):
     filme = Filme.objects.filter(slug=slug).first()
-
     return render(request, 'catalogo/filme.html', filme.as_dict())
 
 

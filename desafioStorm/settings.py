@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,3 +143,6 @@ THUMBNAIL_ALIASES = {
         'ator_imagem': {'size': (300, 300), 'crop': True},
     },
 }
+
+# Variaveis Globais do django-grappelli
+GRAPPELLI_ADMIN_TITLE = 'Administração - Desafio Storm'

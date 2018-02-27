@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load pagination %}
+
 {% block title %}
 	{{ header_content }} | {{ block.super }}
 {% endblock %}
@@ -19,6 +21,7 @@
                     <option value="A_Z" {% if ordem == "A_Z" %}selected{% endif %}>Alfabética</option>
                     <option value="Z_A" {% if ordem == "Z_A" %}selected{% endif %}>Alfabética Inversa</option>
                  </select>
+								 <input type="hidden" name="page" value="{{ page_atual }}">
               </form>
         	 </div>
 
@@ -27,6 +30,8 @@
 				{% load thumbnail %}
 
 	      <div class="row">
+
+					{% if filmes.count > 0 %}
 
 			      {% for filme in filmes %}
 	          <div class="col-md-15 col-xs-3 mb-4">
@@ -39,21 +44,12 @@
 	              </a>
 	          </div>
 			      {% endfor %}
+					{% else %}
+						<div class="col-12 mb-4">Nenhum filme encontrado para este gênero.</div>
+					{% endif %}
 
 	      </div>
 
-				<nav aria-label="Pagination">
-	        <ul class="pagination justify-content-center">
-	          <li class="page-item disabled">
-	            <a class="page-link" href="#" tabindex="-1">Previous</a>
-	          </li>
-	          <li class="page-item"><a class="page-link" href="#">1</a></li>
-	          <li class="page-item"><a class="page-link" href="#">2</a></li>
-	          <li class="page-item"><a class="page-link" href="#">3</a></li>
-	          <li class="page-item">
-	            <a class="page-link" href="#">Next</a>
-	          </li>
-	        </ul>
-	      </nav>
+				{% pagination request paginator page_obj page_atual %}
 
 {% endblock %}

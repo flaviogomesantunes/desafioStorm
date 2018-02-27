@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.shortcuts import render
-from django.forms.models import model_to_dict
+# from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
 from .models import Filme, Genero, Ator
 

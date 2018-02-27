@@ -10,6 +10,11 @@
          <div class="col-15 col-md-10">
         	 <h1 class="my-4">{{ nomeFilme }}</h1>
          </div>
+				 {% if trailer %}
+				 <div class="col-3 col-md-2 my-4">
+						<button class="btn btn-success btn-lg video" onclick="changeVideo('{{ trailer }}')">Assistir Trailer</button>
+      	 </div>
+				 {% endif %}
       </div>
 
 {% load thumbnail %}
@@ -23,6 +28,7 @@
 					{% else %}
 					<img class="img" src="/media/filmes/noimage.jpg" alt="{{ nomeFilme }}">
 					{% endif %}
+
 
 				</div>
 
@@ -49,6 +55,7 @@
 		          Nenhum ator cadastrado.
 		      {% endfor %}
 				  </p>
+
         </div>
 
       </div>
@@ -67,6 +74,23 @@
 				{% endfor %}
 
       </div>
+
+			{% if trailer %}
+			<!-- Iframe para exibir o trailer do vídeo  -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<p><b>TRAILER: {{ nomeFilme }}</b></p>
+							<iframe id="iframeYoutube" width="465" height="315" src="" frameborder="0" allowfullscreen></iframe>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
 
 
 {% endblock %}

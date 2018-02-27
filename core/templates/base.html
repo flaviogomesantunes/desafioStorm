@@ -6,13 +6,28 @@
     <title>{% block title %}Desafio Storm - Desenvolvedor Backend{% endblock %}</title>
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/desafioStorm.css' %}" rel="stylesheet">
-
   </head>
 
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-});
+    $("#myModal").on("hidden.bs.modal",function(){
+    $("#iframeYoutube").attr("src","#");
+  })
+})
+
+function youtube_parser(url){
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length==11)? match[7] : false;
+}
+
+function changeVideo(vId){
+  video_id = youtube_parser(vId);
+  var iframe=document.getElementById("iframeYoutube");
+  iframe.src="https://www.youtube.com/embed/"+video_id;
+  $("#myModal").modal("show");
+}
 </script>
 
   <body>

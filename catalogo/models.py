@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.db import models
+from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from autoslug import AutoSlugField
@@ -24,20 +25,19 @@ class Ator(models.Model):
         return reverse('ator', kwargs={'slug': self.slug})
 
     def as_dict(self):
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        dictionary['filmes'] = [mov.as_simple_dict() for mov in Filme.objects.filter(atores__slug=self.slug)[:20]]
-        return dictionary
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        dict['filmes'] = [mov.as_simple_dict() for mov in Filme.objects.filter(atores__slug=self.slug)[:20]]
+        return dict
 
     def as_simple_dict(self):
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        return dictionary
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        return dict
 
 
 class Genero(models.Model):
     nomeGenero = models.CharField('Gênero', max_length=100)
-    # slug = models.SlugField('Identificador', max_length=100)
     slug = AutoSlugField('Identificador', populate_from='nomeGenero', unique=True, max_length=100)
 
     class Meta:
@@ -52,14 +52,14 @@ class Genero(models.Model):
         return reverse('genero', kwargs={'slug': self.slug})
 
     def as_dict(self):
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        dictionary['filmes'] = [mov.as_simple_dict() for mov in Filme.objects.filter(generos__slug=self.slug)]
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        dict['filmes'] = [mov.as_simple_dict() for mov in Filme.objects.filter(generos__slug=self.slug)]
 
     def as_simple_dict(self):
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        return dictionary
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        return dict
 
 
 class Filme(models.Model):
@@ -90,15 +90,25 @@ class Filme(models.Model):
         self.popularidade = self.popularidade + 1
         self.save()
 
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        dictionary['generos'] = [gen.as_simple_dict() for gen in Genero.objects.filter(filme__slug=self.slug)]
-        dictionary['atores'] = [act.as_simple_dict() for act in Ator.objects.filter(filme__slug=self.slug)]
-        return dictionary
+        # pega os filmes relacionados ao filme que está sendo visualizado
+        # através dos atores e generos
+        atores = self.atores.all()
+        generos = self.generos.all()
+        filmes_relacionados = Filme.objects.filter(Q(generos=generos) | Q(atores=atores)).exclude(slug=self.slug).distinct()[:10]
+        # filmes_relacionados = Filme.objects.filter((Q(generos=generos), Q(atores=atores)) | (Q(generos=generos) | Q(atores=atores))).exclude(slug=self.slug).distinct()[:10]
+
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        dict['generos'] = [gen.as_simple_dict() for gen in Genero.objects.filter(filme__slug=self.slug)]
+        dict['atores'] = [act.as_simple_dict() for act in Ator.objects.filter(filme__slug=self.slug)]
+        dict['filmes'] = [f.as_simple_dict() for f in Filme.objects.filter(atores__slug=self.slug)[:20]]
+        dict['filmes_relacionados'] = filmes_relacionados
+        return dict
 
     def as_simple_dict(self):
-        dictionary = model_to_dict(self)
-        dictionary['slug'] = self.slug
-        dictionary.pop('generos', None)
-        dictionary.pop('atores', None)
-        return dictionary
+        dict = model_to_dict(self)
+        dict['slug'] = self.slug
+        dict.pop('generos', None)
+        dict.pop('atores', None)
+        dict.pop('filmes', None)
+        return dict

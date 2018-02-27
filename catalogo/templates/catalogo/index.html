@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block container %}
+
     <div class="row">
 
          <div class="col-15 col-md-10">
@@ -28,13 +29,33 @@
           <div class="col mb-4">
               <a href="{{ filme.get_absolute_url }}">
 	        {% if filme.imagem %}
-		          <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}">
+		          <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}" data-toggle="tooltip" data-placement="auto" title="{{ filme }}: {{ filme.resumo }}">
           {% else %}
-		          <img class="img" src="/media/filmes/noimage-thumb.jpg" alt="{{ filme }}">
+		          <img class="img" src="/media/filmes/noimage-thumb.jpg" alt="{{ filme }}" data-toggle="tooltip" data-placement="auto" title="{{ filme }}: {{ filme.resumo }}">
           {% endif %}
               </a>
           </div>
 		      {% endfor %}
 
+          <div class="col mb-4"></div>
+          <div class="col mb-4"></div>
+          <div class="col mb-4"></div>
+          <div class="col mb-4"></div>
+
       </div>
+
+      <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
 {% endblock %}

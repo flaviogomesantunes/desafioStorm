@@ -16,7 +16,6 @@ def index(request):
         filmes = Filme.objects.all().order_by('-popularidade')
 
     context = {
-        #'filmes': Filme.objects.all()
         'filmes': filmes,
         'ordem': order,
     }

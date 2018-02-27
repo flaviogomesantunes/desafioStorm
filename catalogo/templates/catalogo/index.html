@@ -26,7 +26,7 @@
       <div class="row">
 
 		      {% for filme in filmes %}
-          <div class="col mb-4">
+          <div class="col-md-15 col-xs-3 mb-4">
               <a href="{{ filme.get_absolute_url }}">
 	        {% if filme.imagem %}
 		          <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}" data-toggle="tooltip" data-placement="auto" title="{{ filme }}: {{ filme.resumo }}">
@@ -36,11 +36,6 @@
               </a>
           </div>
 		      {% endfor %}
-
-          <div class="col mb-4"></div>
-          <div class="col mb-4"></div>
-          <div class="col mb-4"></div>
-          <div class="col mb-4"></div>
 
       </div>
 

@@ -18,13 +18,24 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
+#from django.contrib.auth.models import Filme
+from rest_framework import routers
 
 from core import views
 from catalogo import views as views_catalogo
 
+
+# Routers provide a way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'filmes', views_catalogo.FilmesViewSet, base_name='Filme')
+router.register(r'filme_detalhe', views_catalogo.FilmeDetalheViewSet, base_name='FilmeDetalhe')
+router.register(r'ator', views_catalogo.AtorViewSet, base_name='Ator')
+
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^$', views_catalogo.index, name='index'),
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^ator/(?P<slug>[\w_-]+)/$', views_catalogo.ator, name='ator'),
     url(r'^filme/(?P<slug>[\w_-]+)/$', views_catalogo.filme, name='filme'),
     url(r'^genero/(?P<slug>[\w_-]+)/$', views_catalogo.genero, name='genero'),

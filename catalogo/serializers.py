@@ -1,33 +1,30 @@
 from rest_framework import serializers
 from .models import Filme, Ator, Genero
 from django_filters import rest_framework as filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 
-class GeneroSerializer(serializers.ModelSerializer):
+class TesteAPISerializer(serializers.ModelSerializer):
+    generos = serializers.StringRelatedField(many=True)
+    atores = serializers.StringRelatedField(many=True)
+
     class Meta:
-        model = Genero
-        fields = ['nomeGenero']
-
-
-class AtorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ator
-        fields = ['nomeAtor']
+        model = Filme
+        fields = '__all__'
 
 
 class FilmesSerializer(serializers.ModelSerializer):
-    generos = GeneroSerializer(many=True)
-    atores = AtorSerializer(many=True)
+    generos = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Filme
         # fields = '__all__'
-        fields = ['nomeFilme', 'resumo']
+        fields = ['nome', 'resumo', 'generos']
 
 
 class FilmeDetalheSerializer(serializers.ModelSerializer):
-    generos = GeneroSerializer(many=True)
-    atores = AtorSerializer(many=True)
+    generos = serializers.StringRelatedField(many=True)
+    atores = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Filme
@@ -35,6 +32,7 @@ class FilmeDetalheSerializer(serializers.ModelSerializer):
 
 
 class AtorSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Ator
         fields = '__all__'

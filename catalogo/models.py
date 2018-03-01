@@ -7,18 +7,18 @@ from autoslug import AutoSlugField
 
 
 class Ator(models.Model):
-    nomeAtor = models.CharField('Ator', max_length=200)
-    slug = AutoSlugField('Identificador', populate_from='nomeAtor', unique=True, max_length=200)
+    nome = models.CharField('Ator', max_length=200)
+    slug = AutoSlugField('Identificador', populate_from='nome', unique=True, max_length=200)
     imagem = models.ImageField('Imagem', upload_to='atores', blank=True, null=True)
     pais = models.CharField('País', max_length=100)
 
     class Meta:
         verbose_name = 'Ator'
         verbose_name_plural = 'Atores'
-        ordering = ['nomeAtor']
+        ordering = ['nome']
 
     def __str__(self):
-        return self.nomeAtor
+        return self.nome
 
     def get_absolute_url(self):
         return reverse('ator', kwargs={'slug': self.slug})
@@ -36,16 +36,16 @@ class Ator(models.Model):
 
 
 class Genero(models.Model):
-    nomeGenero = models.CharField('Gênero', max_length=100)
-    slug = AutoSlugField('Identificador', populate_from='nomeGenero', unique=True, max_length=100)
+    nome = models.CharField('Gênero', max_length=100)
+    slug = AutoSlugField('Identificador', populate_from='nome', unique=True, max_length=100)
 
     class Meta:
         verbose_name = 'Gênero'
         verbose_name_plural = 'Gêneros'
-        ordering = ['nomeGenero']
+        ordering = ['nome']
 
     def __str__(self):
-        return self.nomeGenero
+        return self.nome
 
     def get_absolute_url(self):
         return reverse('genero', kwargs={'slug': self.slug})
@@ -62,8 +62,8 @@ class Genero(models.Model):
 
 
 class Filme(models.Model):
-    nomeFilme = models.CharField('Filme', max_length=200)
-    slug = AutoSlugField('Identificador', populate_from='nomeFilme', unique=True, max_length=200)
+    nome = models.CharField('Filme', max_length=200)
+    slug = AutoSlugField('Identificador', populate_from='nome', unique=True, max_length=200)
     sinopse = models.TextField('Sinopse', blank=True)
     resumo = models.CharField('Resumo', max_length=150)
     imagem = models.ImageField('Imagem', upload_to='filmes', blank=True, null=True)
@@ -79,7 +79,7 @@ class Filme(models.Model):
         ordering = ['-popularidade']
 
     def __str__(self):
-        return self.nomeFilme
+        return self.nome
 
     def get_absolute_url(self):
         return reverse('filme', kwargs={'slug': self.slug})

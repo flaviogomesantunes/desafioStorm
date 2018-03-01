@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ nomeFilme }} | {{ block.super }}
+	{{ nome }} | {{ block.super }}
 {% endblock %}
 
 {% block container %}
 
       <div class="row">
          <div class="col-15 col-md-10">
-        	 <h1 class="my-4">{{ nomeFilme }}</h1>
+        	 <h1 class="my-4">{{ nome }}</h1>
          </div>
 				 {% if trailer %}
 				 <div class="col-3 col-md-2 my-4">
@@ -24,9 +24,9 @@
 				<div class="col-md-4">
 
 					{% if imagem %}
-					<img class="img-fluid" src="{{ imagem|thumbnail_url:'filme_imagem' }}" alt="{{ nomeFilme }}">
+					<img class="img-fluid" src="{{ imagem|thumbnail_url:'filme_imagem' }}" alt="{{ nome }}">
 					{% else %}
-					<img class="img" src="/media/filmes/noimage.jpg" alt="{{ nomeFilme }}">
+					<img class="img" src="/media/filmes/noimage.jpg" alt="{{ nome }}">
 					{% endif %}
 
 
@@ -39,7 +39,7 @@
           <h3>Gênero</h3>
 					<p>
 					{% for genero in generos %}
-							<a href="{% url 'catalogo.views.genero' genero.slug %}">{{ genero.nomeGenero }}</a>
+							<a href="{% url 'catalogo.views.genero' genero.slug %}">{{ genero.nome }}</a>
 							{% if not forloop.last %},{% endif %}
 		  		{% empty %}
 		          Nenhum gênero cadastrado.
@@ -49,7 +49,7 @@
 					<h3>Atores</h3>
           <p>
 					{% for ator in atores %}
-							<a href="{% url 'catalogo.views.ator' ator.slug %}">{{ ator.nomeAtor }}</a>
+							<a href="{% url 'catalogo.views.ator' ator.slug %}">{{ ator.nome }}</a>
 							{% if not forloop.last %},{% endif %}
 		  		{% empty %}
 		          Nenhum ator cadastrado.
@@ -71,6 +71,8 @@
             <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}" data-toggle="tooltip" data-placement="auto" title="{{ filme.resumo }}">
           </a>
         </div>
+				{% empty %}
+						Nenhum outro filme relacionado.
 				{% endfor %}
 
       </div>
@@ -81,7 +83,7 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
-							<p><b>TRAILER: {{ nomeFilme }}</b></p>
+							<p><b>TRAILER: {{ nome }}</b></p>
 							<iframe id="iframeYoutube" width="465" height="315" src="" frameborder="0" allowfullscreen></iframe>
 						</div>
 						<div class="modal-footer">

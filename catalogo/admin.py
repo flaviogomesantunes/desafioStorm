@@ -6,21 +6,21 @@ from .models import Ator, Genero, Filme
 # personalização do admin
 class GeneroAdmin(admin.ModelAdmin):
 
-    list_display = ['nomeGenero', 'slug']
-    search_fields = ['nomeGenero', 'slug']
+    list_display = ['nome', 'slug']
+    search_fields = ['nome', 'slug']
 
 
 class AtorAdmin(admin.ModelAdmin):
 
-    list_display = ['nomeAtor', 'slug', 'pais']
-    search_fields = ['nomeAtor', 'slug', 'pais']
+    list_display = ['nome', 'slug', 'pais']
+    search_fields = ['nome', 'slug', 'pais']
 
 
 class FilmeAdmin(admin.ModelAdmin):
 
     readonly_fields = ['popularidade']
-    list_display = ['nomeFilme', 'slug', 'popularidade']
-    search_fields = ['nomeFilme', 'slug', 'popularidade']
+    list_display = ['nome', 'slug', 'popularidade']
+    search_fields = ['nome', 'slug', 'popularidade']
 
 
 admin.site.register(Ator, AtorAdmin)

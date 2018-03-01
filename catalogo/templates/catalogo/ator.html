@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ nomeAtor }} | {{ block.super }}
+	{{ nome }} | {{ block.super }}
 {% endblock %}
 
 {% block container %}
 
       <div class="row">
          <div class="col-15 col-md-10">
-        	 <h1 class="my-4">{{ nomeAtor }}</h1>
+        	 <h1 class="my-4">{{ nome }}</h1>
          </div>
       </div>
 
@@ -19,16 +19,16 @@
         <div class="col-md-3">
 
 				{% if imagem %}
-					<img class="img-fluid" src="{{ imagem|thumbnail_url:'ator_imagem' }}" alt="{{ nomeAtor }}">
+					<img class="img-fluid" src="{{ imagem|thumbnail_url:'ator_imagem' }}" alt="{{ nome }}">
 				{% else %}
-					<img class="img" src="/media/atores/noimage.jpg" alt="{{ nomeAtor }}">
+					<img class="img" src="/media/atores/noimage.jpg" alt="{{ nome }}">
 				{% endif %}
 
         </div>
 
         <div class="col-md-9">
           <span>Ator</span>
-          <h3>{{ nomeAtor }}</h3>
+          <h3>{{ nome }}</h3>
           <p><b>País:</b> {{ pais }}</p>
         </div>
 
@@ -44,6 +44,8 @@
             <img class="img" src="{{ filme.imagem|thumbnail_url:'filme_imagem_thumb' }}" alt="{{ filme }}" data-toggle="tooltip" data-placement="auto" title="{{ filme.resumo }}">
           </a>
         </div>
+				{% empty %}
+						Nenhum outro filme relacionado.
 				{% endfor %}
 
       </div>

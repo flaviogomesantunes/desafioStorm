@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
-#from django.contrib.auth.models import Filme
+# from django.contrib.auth.models import Filme
 from rest_framework import routers
 
 from core import views
@@ -29,6 +29,7 @@ from catalogo import views as views_catalogo
 router = routers.DefaultRouter()
 router.register(r'filmes', views_catalogo.FilmesViewSet, base_name='Filme')
 router.register(r'filme_detalhe', views_catalogo.FilmeDetalheViewSet, base_name='FilmeDetalhe')
+router.register(r'teste_api', views_catalogo.TesteAPIViewSet, base_name='TesteAPI')
 router.register(r'ator', views_catalogo.AtorViewSet, base_name='Ator')
 
 urlpatterns = [

@@ -4,19 +4,40 @@ from django.shortcuts import render
 # from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
 from .models import Filme, Genero, Ator
-from .serializers import FilmesSerializer, FilmeDetalheSerializer, AtorSerializer
+from .serializers import TesteAPISerializer, FilmesSerializer, FilmeDetalheSerializer, AtorSerializer
 from rest_framework import serializers, viewsets, generics
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models.functions import Lower
+from django.db.models import Q
 
 
 # Classes das APIs
+class TesteAPIViewSet(viewsets.ModelViewSet):
+    serializer_class = TesteAPISerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('nome', 'slug')
+
+
+    def get_queryset(self):
+        queryset = Filme.objects.all()
+        nome_filme = self.request.query_params.get('nome', None)
+        slug_filme = self.request.query_params.get('slug', None)
+
+        if nome_filme is not None:
+            queryset = queryset.filter(nome__icontains=nome_filme)
+        elif slug_filme is not None:
+            queryset = queryset.filter(slug=slug_filme)
+
+        return queryset
+
+
+
+
 class FilmesViewSet(viewsets.ModelViewSet):
     serializer_class = FilmesSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('generos',)
-    
+
     def get_queryset(self):
         queryset = Filme.objects.all()
         genero = self.request.query_params.get('generos', None)
@@ -29,15 +50,18 @@ class FilmesViewSet(viewsets.ModelViewSet):
 class FilmeDetalheViewSet(viewsets.ModelViewSet):
     serializer_class = FilmeDetalheSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('nomeFilme', 'slug')
+    filter_fields = ('nome', 'slug')
 
     def get_queryset(self):
         queryset = Filme.objects.all()
-        nome_filme = self.request.query_params.get('nomeFilme', None)
+        nome_filme = self.request.query_params.get('nome', None)
         slug_filme = self.request.query_params.get('slug', None)
 
+
+# filmes_relacionados = Filme.objects.filter(Q(generos=generos) | Q(atores=atores)).exclude(slug=self.slug).distinct()[:10]
+
         if nome_filme is not None:
-            queryset = queryset.filter(nomeFilme__iexact=nome_filme)
+            queryset = queryset.filter(nome__iexact=nome_filme)
         elif slug_filme is not None:
             queryset = queryset.filter(slug=slug_filme)
         return queryset
@@ -46,15 +70,15 @@ class FilmeDetalheViewSet(viewsets.ModelViewSet):
 class AtorViewSet(viewsets.ModelViewSet):
     serializer_class = AtorSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('nomeAtor', 'slug')
+    filter_fields = ('nome', 'slug')
 
     def get_queryset(self):
         queryset = Ator.objects.all()
-        nome_ator = self.request.query_params.get('nomeAtor', None)
+        nome_ator = self.request.query_params.get('nome', None)
         slug_ator = self.request.query_params.get('slug', None)
 
         if nome_ator is not None:
-            queryset = queryset.filter(nomeAtor=nome_ator)
+            queryset = queryset.filter(nome=nome_ator)
         elif slug_ator is not None:
             queryset = queryset.filter(slug=slug_ator)
         return queryset
@@ -74,9 +98,9 @@ def index(request):
 
     if order:
         if order == 'A_Z':
-            page_obj = Paginator(Filme.objects.all().order_by('nomeFilme'), paginate_by)
+            page_obj = Paginator(Filme.objects.all().order_by('nome'), paginate_by)
         else:
-            page_obj = Paginator(Filme.objects.all().order_by('-nomeFilme'), paginate_by)
+            page_obj = Paginator(Filme.objects.all().order_by('-nome'), paginate_by)
     else:
         page_obj = Paginator(Filme.objects.all().order_by('-popularidade'), paginate_by)
 
@@ -112,14 +136,14 @@ def genero(request, slug, *args, **kwargs):
 
     if order:
         if order == 'A_Z':
-            page_obj = Paginator(Filme.objects.filter(generos=genero_list).order_by('nomeFilme'), paginate_by)
+            page_obj = Paginator(Filme.objects.filter(generos=genero_list).order_by('nome'), paginate_by)
         else:
-            page_obj = Paginator(Filme.objects.filter(generos=genero_list).order_by('-nomeFilme'), paginate_by)
+            page_obj = Paginator(Filme.objects.filter(generos=genero_list).order_by('-nome'), paginate_by)
     else:
         page_obj = Paginator(Filme.objects.filter(generos=genero_list).order_by('-popularidade'), paginate_by)
 
     for genero in genero_list:
-        header_content = genero.nomeGenero
+        header_content = genero.nome
 
     page_atual = page_obj.page(page)
     filmes = page_atual.object_list

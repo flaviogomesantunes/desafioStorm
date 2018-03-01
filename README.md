@@ -1,47 +1,52 @@
-# Desafio da empresa Storm Security para a vaga de Desenvolvedor Backend 
+# Desafio da empresa Storm Security para a vaga de Desenvolvedor Backend
 
-# instalar o python 3.5
-```sh
+Projeto desenvolvido por Flavio Gomes Antunes.
+
+## Criando o ambiente do projeto
+
+### Instalar o python 3.5
+```
 sudo apt-get install python3.5
 ```
 
-# instalar o pip
-```sh
+### Instalar o pip
+```
 sudo apt-get install python-pip
 ```
 
-# Criar uma pasta para os arquivos do projeto e entrar nela
-```sh
+### Criar uma pasta para os arquivos do projeto e entrar nela
+```
 mkdir desafioStorm
 cd desafioStorm
 ```
 
-# Copiar o projeto para o diretorio que foi criado
+### Copiar o projeto para o diretorio que foi criado
 
-# instalar o python-virtualenv
-```sh
+### Instalar o python-virtualenv
+```
 sudo apt-get install python-virtualenv
 ```
 
-# Criar o virtualenv do projeto usando o python 3.5
-```sh
+### Criar o virtualenv do projeto usando o python 3.5
+```
 virtualenv virtual -p python3.5
 ```
 
-# PARA TESTAR O PROJETO
-
-```sh
+## PARA TESTAR O PROJETO
+```
 source virtual/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
 ```
 
-# Iniciar o servidor web
-```sh
+## Iniciar o servidor web
+```
 python manage.py runserver
 ```
 
-# Site: http://127.0.0.1:8000/
+## Informações de acesso
 
-# Admin: http://127.0.0.1:8000/admin/
-# Usuário: admin / Senha: 123mudar
+### Site: http://127.0.0.1:8000/
+### Admin: http://127.0.0.1:8000/admin/
+#### Usuário: admin / Senha: 123mudar
+### APIs: http://127.0.0.1:8000/api/

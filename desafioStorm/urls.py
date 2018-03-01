@@ -29,7 +29,7 @@ from catalogo import views as views_catalogo
 router = routers.DefaultRouter()
 router.register(r'filmes', views_catalogo.FilmesViewSet, base_name='Filme')
 router.register(r'filme_detalhe', views_catalogo.FilmeDetalheViewSet, base_name='FilmeDetalhe')
-router.register(r'teste_api', views_catalogo.TesteAPIViewSet, base_name='TesteAPI')
+# router.register(r'teste_api', views_catalogo.TesteAPIViewSet, base_name='TesteAPI')
 router.register(r'ator', views_catalogo.AtorViewSet, base_name='Ator')
 
 urlpatterns = [
